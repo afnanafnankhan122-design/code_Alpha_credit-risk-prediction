@@ -8,7 +8,6 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import StandardScaler
 
-# Load dataset
 df = pd.read_csv("credit_risk_dataset.csv")
 
 
@@ -21,13 +20,10 @@ df['cb_person_default_on_file'] = df['cb_person_default_on_file'].map({'Y': 1, '
 
 df['loan_grade'] = df['loan_grade'].map({'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7})
 
-# Use get_dummies instead of dropping categorical columns (retains useful signal)
 df = pd.get_dummies(df, columns=['loan_intent', 'person_home_ownership'], drop_first=True)
 
-# Drop remaining NaN rows
 df = df.dropna()
 
-# Features and target
 X = df.drop('loan_status', axis=1)
 y = df['loan_status']
 
